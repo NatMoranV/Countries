@@ -16,13 +16,13 @@ const SearchBar = ({ onSearch, onClearFilter }) => {
   };
 
   const handleClear = () => {
-    setSearchTerm(""); // Limpiar el término de búsqueda localmente
-    onClearFilter(); // Limpiar el término de búsqueda en el componente padre
+    setSearchTerm(""); 
+    onClearFilter(); 
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearch(); // Realizar búsqueda al presionar la tecla "Enter"
+      handleSearch(); 
     }
   };
 
