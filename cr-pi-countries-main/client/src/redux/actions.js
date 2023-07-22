@@ -1,8 +1,12 @@
-export const setId = (id) => ({
-    type: 'SET_ID',
-    payload: id,
-  });
-  
-  export const clearId = () => ({
-    type: 'CLEAR_ID',
-  });
+  export const setName = (name) => {
+    return {
+      type: "SET_NAME",
+      payload: name,
+    };
+  };
+
+  export const clearName = () => {
+    return {
+      type: "CLEAR_NAME",
+    };
+  };

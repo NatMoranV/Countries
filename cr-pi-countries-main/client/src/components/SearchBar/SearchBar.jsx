@@ -1,29 +1,36 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setId, clearId } from "../../redux/actions";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setName } from "../../redux/actions";
 
-
-const SearchBar = ({ onSearch }) => {
-  const getRandomID = () => {
-    return Math.floor(Math.random() * (826 - 1 + 1) + 1);
-  };
-
+const SearchBar = ({ onSearch, onClearFilter }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.id);
 
-  const handleInputChange = (value) => {
-    dispatch(setId(value));
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleSearch = () => {
-    onSearch(id);
-    dispatch(clearId());
+    dispatch(setName(searchTerm));
+    onSearch(searchTerm);
+  };
+
+  const handleClear = () => {
+    setSearchTerm(""); // Limpiar el término de búsqueda localmente
+    onClearFilter(); // Limpiar el término de búsqueda en el componente padre
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch(); // Realizar búsqueda al presionar la tecla "Enter"
+    }
   };
 
   return (
     <div>
-      <button onClick={() => onSearch(getRandomID())} />
-      <input onChange={handleInputChange} />
-      <button onClick={handleSearch} />
+      <input onChange={handleInputChange} value={searchTerm} onKeyDown={handleKeyDown} />
+      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleClear}>Limpiar filtro</button>
     </div>
   );
 };

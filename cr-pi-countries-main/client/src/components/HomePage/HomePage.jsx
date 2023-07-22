@@ -1,15 +1,25 @@
-import React from "react";
-import { CardsGrid } from "../CardsGrid/CardsGrid"
-import SearchBar from "../SearchBar/SearchBar"
+import React, { useState } from "react";
+import { CardsGrid } from "../CardsGrid/CardsGrid";
+import SearchBar from "../SearchBar/SearchBar";
 
+export const HomePage = () => {
+  // Estado para almacenar el valor de búsqueda
+  const [searchValue, setSearchValue] = useState("");
 
-export const HomePage = () =>{
+  // Función para realizar la búsqueda
+  const handleSearch = (value) => {
+    setSearchValue(value); // Actualiza el estado con el valor de búsqueda
+  };
 
-    return(
-        <div>
-            <h1>Esta es la Home</h1>
-            <SearchBar/>
-            <CardsGrid/>
-        </div>
-    )
-}
+  const handleClearFilter = () => {
+    setSearchValue(""); // Restablece el valor de búsqueda a vacío
+  };
+
+  return (
+    <div>
+      <h1>Esta es la Home</h1>
+      <SearchBar onSearch={handleSearch} onClearFilter={handleClearFilter} />
+      <CardsGrid searchValue={searchValue} />
+    </div>
+  );
+};
