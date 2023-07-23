@@ -4,14 +4,17 @@ import { Card } from "../Card/Card";
 import ContinentFilter from "../Filtros/ContinentFilter";
 import ActivityFilter from "../Filtros/ActivityFilter";
 
-
-
 export const CardsGrid = ({ searchValue }) => {
   const [data, setData] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedContinent, setSelectedContinent] = useState("");
   const [selectedActivity, setSelectedActivity] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc"); // Puede ser "asc" o "desc"
+  const [sortField, setSortField] = useState("name");
+
   const pageSize = 10;
+  let thisActivity = {}
 
   useEffect(() => {
     axios
@@ -24,18 +27,54 @@ export const CardsGrid = ({ searchValue }) => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/activities")
+      .then((response) => {
+        setActivities(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const continents = [...new Set(data.map((country) => country.continent))];
-  const activities = [...new Set(data.flatMap((country) => country.activities || []))];
 
   const applyFilters = () => {
     let filteredData = data;
 
+    filteredData.sort((a, b) => {
+      if (sortField === "population") {
+        // Ordenamiento numérico según la población
+        const populationA = a[sortField] || 0;
+        const populationB = b[sortField] || 0;
+
+        if (sortOrder === "asc") {
+          return populationA - populationB;
+        } else {
+          return populationB - populationA;
+        }
+      } else {
+        // Ordenamiento alfabético para los otros campos
+        const fieldValueA = a[sortField].toLowerCase();
+        const fieldValueB = b[sortField].toLowerCase();
+
+        if (sortOrder === "asc") {
+          return fieldValueA.localeCompare(fieldValueB);
+        } else {
+          return fieldValueB.localeCompare(fieldValueA);
+        }
+      }
+    });
+
+    // Aplicar filtros
     if (selectedContinent) {
       filteredData = filteredData.filter((country) => country.continent === selectedContinent);
     }
 
     if (selectedActivity) {
-      filteredData = filteredData.filter((country) => country.activities?.includes(selectedActivity));
+      thisActivity = activities.find((e) => e.id == selectedActivity);
+      filteredData = thisActivity.Countries;
     }
 
     if (searchValue) {
@@ -66,6 +105,25 @@ export const CardsGrid = ({ searchValue }) => {
     setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1));
   };
 
+  const handleSortChange = (field) => {
+    if (field === sortField) {
+      // Si se hace clic en el mismo campo, cambiar el tipo de ordenamiento
+      setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    } else {
+      // Si se hace clic en un campo diferente, establecer el nuevo campo y el orden ascendente
+      setSortField(field);
+      setSortOrder("asc");
+    }
+  };
+
+  const handleHomeClick = () => {
+    setSelectedContinent(""); // Restablecer el filtro de continente
+    setSelectedActivity(""); // Restablecer el filtro de actividad
+    setSortOrder("asc"); // Restablecer el orden ascendente/descendente
+    setSortField("name"); // Restablecer el campo de ordenamiento
+    setCurrentPage(1); // Restablecer la página actual
+  };
+
   return (
     <div className="grid-container">
       <div className="filters">
@@ -80,6 +138,22 @@ export const CardsGrid = ({ searchValue }) => {
           onActivityChange={(e) => setSelectedActivity(e.target.value)}
         />
       </div>
+      <div className="sort-buttons">
+        <button
+          onClick={() => handleSortChange("name")}
+          className={sortField === "name" ? sortOrder : ""}
+        >
+          Name {sortField === "name" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
+        </button>
+        <button
+          onClick={() => handleSortChange("population")}
+          className={sortField === "population" ? sortOrder : ""}
+        >
+          Population {sortField === "population" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
+        </button>
+        {/* Agregar más botones para otros campos si es necesario */}
+      </div>
+      <button onClick={handleHomeClick}>Home</button>
       {filteredData.length === 0 ? (
         <p>No se encontraron resultados.</p>
       ) : (
@@ -96,7 +170,7 @@ export const CardsGrid = ({ searchValue }) => {
               subregion={country.subregion || "unknown"}
               area={country.area || "unknown"}
               population={country.population || "unknown"}
-              activities={country.activities || "unknown"}
+              activities={thisActivity.name}
             />
           ))
       )}

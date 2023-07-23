@@ -32,7 +32,8 @@ export const DetailPage = () => {
           subregion={countryDetails.subregion}
           area={countryDetails.area}
           population={countryDetails.population}
-          activities={countryDetails.activities}
+          activities={countryDetails.Activities && countryDetails.Activities.length > 0 ? countryDetails.Activities[0].name : ""}
+
         />
       ) : (
         <p>Cargando detalles del país...</p>
