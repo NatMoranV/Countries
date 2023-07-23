@@ -1,3 +1,5 @@
+import { useState } from "react";
+
   export const setName = (name) => {
     return {
       type: "SET_NAME",
@@ -10,3 +12,21 @@
       type: "CLEAR_NAME",
     };
   };
+
+
+
+  export const useSearchActions = () => {
+    const [searchValue, setSearchValue] = useState("");
+  
+    const handleSearch = (value) => {
+      setSearchValue(value);
+    };
+  
+    const handleClearFilter = () => {
+      setSearchValue("");
+    };
+  
+    return { searchValue, handleSearch, handleClearFilter };
+  };
+
+  

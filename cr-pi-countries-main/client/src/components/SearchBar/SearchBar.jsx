@@ -16,19 +16,23 @@ const SearchBar = ({ onSearch, onClearFilter }) => {
   };
 
   const handleClear = () => {
-    setSearchTerm(""); 
-    onClearFilter(); 
+    setSearchTerm("");
+    onClearFilter();
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearch(); 
+      handleSearch();
     }
   };
 
   return (
     <div>
-      <input onChange={handleInputChange} value={searchTerm} onKeyDown={handleKeyDown} />
+      <input
+        onChange={handleInputChange}
+        value={searchTerm}
+        onKeyDown={handleKeyDown}
+      />
       <button onClick={handleSearch}>Search</button>
       <button onClick={handleClear}>Limpiar filtro</button>
     </div>

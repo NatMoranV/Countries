@@ -54,9 +54,15 @@ export const CardsGrid = ({ searchValue }) => {
           .map((country) => (
             <Card
               key={country.id}
+              id={country.id}
               img={country.image}
               country={country.name}
               continent={country.continent}
+              capital={country.capital}
+              subregion={country.subregion || "unknown"}
+              area={country.area || "unknown"}
+              population={country.population || "unknown"}
+              activities={country.activities || "unknown"}
             />
           ))
       )}
