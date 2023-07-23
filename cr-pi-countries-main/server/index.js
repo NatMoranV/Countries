@@ -6,7 +6,7 @@ const PORT = 3001;
 
 insertCountries()
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 })
