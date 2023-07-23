@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card } from "../Card/Card";
+import ContinentFilter from "../Filtros/ContinentFilter";
+import ActivityFilter from "../Filtros/ActivityFilter";
+
+
 
 export const CardsGrid = ({ searchValue }) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedContinent, setSelectedContinent] = useState("");
+  const [selectedActivity, setSelectedActivity] = useState("");
+  const pageSize = 10;
 
   useEffect(() => {
     axios
@@ -17,17 +24,32 @@ export const CardsGrid = ({ searchValue }) => {
       });
   }, []);
 
-  const pageSize = 10; // Tamaño de la página (cantidad de países por página)
+  const continents = [...new Set(data.map((country) => country.continent))];
+  const activities = [...new Set(data.flatMap((country) => country.activities || []))];
 
-  const filteredData = searchValue
-    ? data.filter((country) =>
+  const applyFilters = () => {
+    let filteredData = data;
+
+    if (selectedContinent) {
+      filteredData = filteredData.filter((country) => country.continent === selectedContinent);
+    }
+
+    if (selectedActivity) {
+      filteredData = filteredData.filter((country) => country.activities?.includes(selectedActivity));
+    }
+
+    if (searchValue) {
+      filteredData = filteredData.filter((country) =>
         country.name.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    : data;
+      );
+    }
 
+    return filteredData;
+  };
+
+  const filteredData = applyFilters();
   const totalPages = Math.ceil(filteredData.length / pageSize);
 
-  // Calcular el rango de páginas a mostrar en el paginador
   const pageRange = 5;
   const pageStart = Math.max(1, currentPage - Math.floor(pageRange / 2));
   const pageEnd = Math.min(totalPages, pageStart + pageRange - 1);
@@ -46,6 +68,18 @@ export const CardsGrid = ({ searchValue }) => {
 
   return (
     <div className="grid-container">
+      <div className="filters">
+        <ContinentFilter
+          continents={continents}
+          selectedContinent={selectedContinent}
+          onContinentChange={(e) => setSelectedContinent(e.target.value)}
+        />
+        <ActivityFilter
+          activities={activities}
+          selectedActivity={selectedActivity}
+          onActivityChange={(e) => setSelectedActivity(e.target.value)}
+        />
+      </div>
       {filteredData.length === 0 ? (
         <p>No se encontraron resultados.</p>
       ) : (

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { CardsGrid } from "../CardsGrid/CardsGrid";
 import SearchBar from "../SearchBar/SearchBar";
+import ActivityFilter from "../Filtros/ActivityFilter";
+import ContinentFilter from "../Filtros/ContinentFilter";
 
 export const HomePage = () => {
   // Estado para almacenar el valor de búsqueda
@@ -19,7 +21,10 @@ export const HomePage = () => {
     <div>
       <h1>Esta es la Home</h1>
       <SearchBar onSearch={handleSearch} onClearFilter={handleClearFilter} />
+       <ContinentFilter />
+      <ActivityFilter />
       <CardsGrid searchValue={searchValue} />
     </div>
   );
 };
+
