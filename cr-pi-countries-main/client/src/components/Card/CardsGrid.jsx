@@ -1,19 +1,62 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Card } from "../Card/Card";
-import ContinentFilter from "../Filtros/ContinentFilter";
-import ActivityFilter from "../Filtros/ActivityFilter";
-import { StyledCardsGrid } from "./StyledCardsGrid";
 import { Dropdown } from "../Dropdown/StyledDropdown";
+import {
+  faArrowDown,
+  faArrowUp,
+  faSearch,
+  faFilterCircleXmark,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 
-export const CardsGrid = ({ searchValue }) => {
+import { styled } from "styled-components";
+import { StyledInput } from "../Input/StyledInput";
+import { CircleButton } from "../CircleButton/CircleButton";
+
+const StyledCardsGrid = styled.div`
+  margin: 5vh ;
+  display: grid;
+  gap: 3rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+`;
+const ActionsContainer = styled.div`
+  display: flex;
+  padding: 3rem 19.3125rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  align-self: stretch;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2.125rem;
+`;
+
+const PaginationContainer = styled.div`
+
+display: flex;
+align-items: center;
+gap: 0.875rem;
+justify-content: flex-end;
+margin-bottom: 5rem;
+
+`
+
+export const CardsGrid = () => {
   const [data, setData] = useState([]);
   const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedContinent, setSelectedContinent] = useState("");
   const [selectedActivity, setSelectedActivity] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc"); // Puede ser "asc" o 
+  const [sortOrder, setSortOrder] = useState("asc");
   const [sortField, setSortField] = useState("name");
+  const [searchValue, setSearchValue] = useState("");
 
   const pageSize = 10;
   let thisActivity = {};
@@ -41,35 +84,12 @@ export const CardsGrid = ({ searchValue }) => {
   }, []);
 
   const continents = [...new Set(data.map((country) => country.continent))];
-  const orderBy = ["name", "population"];
+
+  const orderers = ["population"];
+
   const applyFilters = () => {
     let filteredData = data;
 
-    filteredData.sort((a, b) => {
-      if (sortField === "population") {
-        // Ordenamiento numérico según la población
-        const populationA = a[sortField] || 0;
-        const populationB = b[sortField] || 0;
-
-        if (sortOrder === "asc") {
-          return populationA - populationB;
-        } else {
-          return populationB - populationA;
-        }
-      } else {
-        // Ordenamiento alfabético para los otros campos
-        const fieldValueA = a[sortField].toLowerCase();
-        const fieldValueB = b[sortField].toLowerCase();
-
-        if (sortOrder === "asc") {
-          return fieldValueA.localeCompare(fieldValueB);
-        } else {
-          return fieldValueB.localeCompare(fieldValueA);
-        }
-      }
-    });
-
-    // Aplicar filtros
     if (selectedContinent) {
       filteredData = filteredData.filter(
         (country) => country.continent === selectedContinent
@@ -87,6 +107,28 @@ export const CardsGrid = ({ searchValue }) => {
       );
     }
 
+    filteredData.sort((a, b) => {
+      if (sortField === "population") {
+        const populationA = a[sortField] || 0;
+        const populationB = b[sortField] || 0;
+
+        if (sortOrder === "asc") {
+          return populationA - populationB;
+        } else {
+          return populationB - populationA;
+        }
+      } else {
+        const fieldValueA = a[sortField].toLowerCase();
+        const fieldValueB = b[sortField].toLowerCase();
+
+        if (sortOrder === "asc") {
+          return fieldValueA.localeCompare(fieldValueB);
+        } else {
+          return fieldValueB.localeCompare(fieldValueA);
+        }
+      }
+    });
+
     return filteredData;
   };
 
@@ -96,6 +138,23 @@ export const CardsGrid = ({ searchValue }) => {
   const pageRange = 5;
   const pageStart = Math.max(1, currentPage - Math.floor(pageRange / 2));
   const pageEnd = Math.min(totalPages, pageStart + pageRange - 1);
+
+  const dispatch = useDispatch();
+
+  const handleInputChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSearch = () => {
+    dispatch(setName(searchValue));
+    onSearch(searchValue);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -109,67 +168,84 @@ export const CardsGrid = ({ searchValue }) => {
     setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1));
   };
 
-  const handleSortChange = (field) => {
-    if (field === sortField) {
-      // Si se hace clic en el mismo campo, cambiar el tipo de ordenamiento
-      setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-    } else {
-      // Si se hace clic en un campo diferente, establecer el nuevo campo y el orden ascendente
-      setSortField(field);
-      setSortOrder("asc");
-    }
+  const handleSortFieldChange = (field) => {
+    setSortField(field);
   };
 
-  const handleHomeClick = () => {
-    setSelectedContinent(""); // Restablecer el filtro de continente
-    setSelectedActivity(""); // Restablecer el filtro de actividad
-    setSortOrder("asc"); // Restablecer el orden ascendente/descendente
-    setSortField("name"); // Restablecer el campo de ordenamiento
-    setCurrentPage(1); // Restablecer la página actual
+  const handleSortAsc = () => {
+    setSortOrder("asc");
+  };
+
+  const handleSortDesc = () => {
+    setSortOrder("desc");
+  };
+
+  const clearFilters = () => {
+    setSelectedContinent("");
+    setSelectedActivity("");
+    setSortOrder("asc");
+    setSortField("name");
+    setCurrentPage(1);
+    setSearchValue("");
   };
 
   return (
     <div className="grid-container">
-      <div className="filters">
-        <Dropdown
-          text={"Filtrar por continente"}
-          array={continents}
-          id={selectedContinent}
-          value={selectedContinent}
-          onChange={(e) => setSelectedContinent(e.target.value)}
+      <ActionsContainer>
+        <StyledInput
+          label={"Buscador"}
+          placeholder={"Ex. Mexico / MEX "}
+          type={"text"}
+          helper={"Puedes buscar por nombre o código internacional (ISO)"}
+          actionButton={handleSearch}
+          icono={faSearch}
+          onChange={handleInputChange}
+          value={searchValue}
+          onKeyDown={handleKeyDown}
         />
-        <Dropdown
-          text={"Filtrar por actividad"}
-          array={activities}
-          id={selectedActivity}
-          value={selectedActivity}
-          onChange={(e) => setSelectedActivity(e.target.value)}
-        />
-        <Dropdown
-          text={"Ordenar por"}
-          array={orderBy}
-          id={selectedActivity}
-          value={selectedActivity}
-          onChange={(e) => setSelectedActivity(e.target.value)}
-        />
-      </div>
-      <div className="sort-buttons">
-        <button
-          onClick={() => handleSortChange("name")}
-          className={sortField === "name" ? sortOrder : ""}
-        >
-          Name {sortField === "name" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
-        </button>
-        <button
-          onClick={() => handleSortChange("population")}
-          className={sortField === "population" ? sortOrder : ""}
-        >
-          Population{" "}
-          {sortField === "population" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
-        </button>
-        {/* Agregar más botones para otros campos si es necesario */}
-      </div>
-      <button onClick={handleHomeClick}>Home</button>
+        <ButtonsContainer>
+          <Dropdown
+            label={"Filtrar por continente"}
+            option1={"Todos"}
+            array={continents}
+            id={selectedContinent}
+            selectedValue={selectedContinent}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "Todos") {
+                setSelectedContinent("");
+              } else setSelectedContinent(value);
+            }}
+          />
+          <Dropdown
+            label={"Filtrar por actividad"}
+            option1={"Todas"}
+            array={activities}
+            id={selectedActivity}
+            selectedValue={selectedActivity}
+            onChange={(e) => setSelectedActivity(e.target.value)}
+          />
+          <Dropdown
+            label={"Ordenar por"}
+            option1={"name"}
+            array={orderers}
+            selectedValue={sortField}
+            onChange={(e) => setSortField(e.target.value)}
+          />
+         
+          <CircleButton
+            icon={faArrowDown}
+            onClick={handleSortAsc}
+            className={sortOrder === "asc" ? "active" : ""}
+          /> <CircleButton
+            icon={faArrowUp}
+            onClick={handleSortDesc}
+            className={sortOrder === "desc" ? "active" : ""}
+          />
+
+          <CircleButton onClick={clearFilters} icon={faFilterCircleXmark} />
+        </ButtonsContainer>
+      </ActionsContainer>
       <StyledCardsGrid>
         {filteredData.length === 0 ? (
           <p>No se encontraron resultados.</p>
@@ -194,29 +270,28 @@ export const CardsGrid = ({ searchValue }) => {
       </StyledCardsGrid>
 
       {totalPages > 1 && (
-        <div className="pagination">
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            {"<"}
-          </button>
+        <PaginationContainer>
+          <CircleButton onClick={handlePrevPage} disabled={currentPage === 1} icon={faArrowLeft}/>
+         
           {Array.from({ length: pageEnd - pageStart + 1 }).map((_, index) => {
             const pageNumber = pageStart + index;
             return (
-              <button
+              <CircleButton
                 key={pageNumber}
                 onClick={() => handlePageChange(pageNumber)}
                 className={currentPage === pageNumber ? "active" : ""}
+                content = {pageNumber}
               >
-                {pageNumber}
-              </button>
+                
+              </CircleButton>
             );
           })}
-          <button
+          <CircleButton
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-          >
-            {">"}
-          </button>
-        </div>
+            icon={faArrowRight}
+          />
+        </PaginationContainer>
       )}
     </div>
   );
