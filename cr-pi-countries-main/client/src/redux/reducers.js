@@ -1,6 +1,5 @@
 const initialState = {
-  name: "", // Estado inicial de 'name'
-  // Otros estados iniciales
+  name: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,9 +7,9 @@ const reducer = (state = initialState, action) => {
     case "SET_NAME":
       return {
         ...state,
-        name: action.payload, // Actualiza el estado 'name' con el valor del 'payload'
+        name: action.payload, 
       };
-    // Otros casos para manejar diferentes acciones
+    
     default:
       return state;
 

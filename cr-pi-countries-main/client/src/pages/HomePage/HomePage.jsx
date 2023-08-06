@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { CardsGrid } from "../CardsGrid/CardsGrid";
-import SearchBar from "../SearchBar/SearchBar";
-import ActivityFilter from "../Filtros/ActivityFilter";
-import ContinentFilter from "../Filtros/ContinentFilter";
+import { CardsGrid } from "../../components/Card/CardsGrid";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import ActivityFilter from "../../components/Filtros/ActivityFilter";
+import ContinentFilter from "../../components/Filtros/ContinentFilter";
+import { styled } from "styled-components";
+
+const StyledHome = styled.div`
+
+margin-top: 10rem;
+padding: 0 5rem 0 5rem;
+
+`
+
 
 export const HomePage = () => {
   // Estado para almacenar el valor de búsqueda
@@ -18,13 +27,14 @@ export const HomePage = () => {
   };
 
   return (
-    <div>
-      <h1>Esta es la Home</h1>
+    <StyledHome>
+      <h4>Países</h4>
+      <p>Aquí encontrarás toda la información de nuestro catálogo de países, puedes buscar y filtrar conforme a lo que necesites. </p>
       <SearchBar onSearch={handleSearch} onClearFilter={handleClearFilter} />
        <ContinentFilter />
       <ActivityFilter />
       <CardsGrid searchValue={searchValue} />
-    </div>
+    </StyledHome>
   );
 };
 
