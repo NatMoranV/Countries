@@ -16,21 +16,22 @@ align-self: stretch;
 
 `
 
-const SearchBar = ({ onSearch, onClearFilter }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const SearchBar = () => {
+  const [searchValue, setSearchValue] = useState("");
+
   const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+    setSearchValue(event.target.value);
   };
 
   const handleSearch = () => {
-    dispatch(setName(searchTerm));
-    onSearch(searchTerm);
+    dispatch(setName(searchValue));
+    onSearch(searchValue);
   };
 
   const handleClear = () => {
-    setSearchTerm("");
+    setSearchValue("");
     onClearFilter();
   };
 
@@ -50,11 +51,9 @@ const SearchBar = ({ onSearch, onClearFilter }) => {
         actionButton = {handleSearch}
         icono = {faSearch}
         onChange={handleInputChange}
-        value={searchTerm}
+        value={searchValue}
         onKeyDown={handleKeyDown}
       />
-      {/* <button onClick={handleSearch}>Search</button> */}
-      {/* <button onClick={handleClear}>Limpiar filtro</button> */}
     </ActionsContainer>
   );
 };

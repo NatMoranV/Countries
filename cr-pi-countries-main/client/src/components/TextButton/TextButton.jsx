@@ -8,7 +8,7 @@ align-items: center;
 gap: 0.625rem;
 border: none;
 cursor: pointer;
-margin: 5vh 0;
+margin: 1vh 0;
 
 border-radius: 3rem;
 background: ${(props) => props.theme.primary};

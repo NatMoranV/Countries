@@ -15,6 +15,10 @@ import { createGlobalStyle } from "styled-components";
   select, input:focus {
     outline: none;
     border: none;}
+
+    .active{
+      box-shadow: ${(props) => props.theme.pressedShadow};
+    }
   
   .disabled{
     box-shadow: none;

@@ -6,13 +6,13 @@ const DropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 14rem;
-    position: relative;
+  position: relative;
   && label {
   }
 `;
 
 const StyledDropdown = styled.select`
-appearance: none;
+  appearance: none;
   display: flex;
   height: 4.5rem;
   padding: 1rem 1.5rem;
@@ -43,14 +43,25 @@ const DropdownIcon = styled.span`
   font-size: 1.1rem;
 `;
 
-export const Dropdown = ({ text, array, id, value, onChange }) => {
-    const isDisabled = !array || array.length === 0;
+export const Dropdown = ({
+  option1,
+  label,
+  array,
+  id,
+  selectedValue,
+  onChange,
+}) => {
+  const isDisabled = !array || array.length === 0;
 
   return (
     <DropdownContainer>
-      <label htmlFor="continent">{text}</label>
-      <StyledDropdown className={isDisabled ? "disabled" : ""} id={id} value={value} onChange={onChange}>
-        <option value="">Todos</option>
+      <label htmlFor="continent">{label}</label>
+      <StyledDropdown
+        className={isDisabled ? "disabled" : ""}
+        value={selectedValue}
+        onChange={onChange}
+      >
+        <option value={option1}>{option1}</option>
         {array.map((item, index) => (
           <option key={index} value={item}>
             {item}
