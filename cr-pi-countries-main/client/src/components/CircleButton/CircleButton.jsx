@@ -17,10 +17,15 @@ const StyledCircleButton = styled.button`
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 3rem;
+  cursor: pointer;
 
   &:active {
     box-shadow: ${(props) => props.theme.pressedShadow};
   }
+
+  &.active{
+      box-shadow: ${(props) => props.theme.pressedShadow};
+    }
 `;
 
 export const CircleButton = ({icon, onClick, className, content}) => {

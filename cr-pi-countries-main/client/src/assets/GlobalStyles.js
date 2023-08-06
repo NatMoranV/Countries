@@ -16,9 +16,6 @@ import { createGlobalStyle } from "styled-components";
     outline: none;
     border: none;}
 
-    .active{
-      box-shadow: ${(props) => props.theme.pressedShadow};
-    }
   
   .disabled{
     box-shadow: none;
@@ -58,6 +55,12 @@ line-height: normal;
   text-align: start;
   }
   
+  h5{
+    font-size: 1.5em;
+    margin: 0 ;
+    font-weight: 600;
+  
+  }
   h6{
     font-size: 1.5em;
     margin: 1rem 0 0 0;

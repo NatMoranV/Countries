@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Card } from "../Card/Card";
+import { Card } from "./Card";
 import { Dropdown } from "../Dropdown/StyledDropdown";
 import {
   faArrowDown,
@@ -25,7 +25,7 @@ const StyledCardsGrid = styled.div`
 `;
 const ActionsContainer = styled.div`
   display: flex;
-  padding: 3rem 19.3125rem;
+  padding: 3rem 10rem;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
@@ -36,6 +36,8 @@ const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2.125rem;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const PaginationContainer = styled.div`
@@ -259,11 +261,6 @@ export const CardsGrid = () => {
                 img={country.image}
                 country={country.name}
                 continent={country.continent}
-                capital={country.capital}
-                subregion={country.subregion || "unknown"}
-                area={country.area || "unknown"}
-                population={country.population || "unknown"}
-                activities={thisActivity.name}
               />
             ))
         )}

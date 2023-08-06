@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "../../components/Card/Card";
+import { DetailCard } from "../../components/Cards/DetailCard";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { styled } from "styled-components";
+
+
+
+const StyledDetailPage = styled.div`
+  margin-top: 8rem;
+  padding: 0 5rem 0 5rem;
+
+`;
+
+const CardContainer = styled.div`
+
+display: flex;
+justify-content: center;
+margin: 3rem;
+
+`
 
 export const DetailPage = () => {
   const { id } = useParams();
@@ -20,10 +37,14 @@ export const DetailPage = () => {
   }, [id]);
 
   return (
-    <div>
-      <h1>Esta es la Detail</h1>
+    <StyledDetailPage>
+      <h4>Detalle</h4>
+      <p>
+        Aquí encontrarás la información más detallada sobre el país que elegiste
+      </p>
       {countryDetails ? (
-        <Card
+        <CardContainer>
+        <DetailCard
           id={countryDetails.id}
           img={countryDetails.image}
           country={countryDetails.name}
@@ -32,12 +53,11 @@ export const DetailPage = () => {
           subregion={countryDetails.subregion}
           area={countryDetails.area}
           population={countryDetails.population}
-          activities={countryDetails.Activities && countryDetails.Activities.length > 0 ? countryDetails.Activities[0].name : ""}
 
-        />
+        /></CardContainer>
       ) : (
         <p>Cargando detalles del país...</p>
       )}
-    </div>
+    </StyledDetailPage>
   );
 };

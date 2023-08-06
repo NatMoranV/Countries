@@ -19,14 +19,17 @@ font-weight: 700;
 line-height: 3rem; 
 
 &:active {
-
     box-shadow: ${(props) => props.theme.pressedShadow};}
+
+    &.active{
+      box-shadow: ${(props) => props.theme.pressedShadow};
+    }
 
 `
 
-export const TextButton = ({text}) =>{
+export const TextButton = ({text, isActive}) =>{
     return(
-<StyledTextButton>
+<StyledTextButton className={isActive ? "active" : ""}>
     {text}
 </StyledTextButton>
     )

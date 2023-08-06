@@ -7,7 +7,8 @@ const InputContainer = styled.div`
   align-items: flex-start;
   gap: 1rem;
   position: relative;
-  width: 100%;
+  width: 90%;
+  box-sizing: border-box;
 `;
 
 const Label = styled.label`

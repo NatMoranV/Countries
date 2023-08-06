@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CardsGrid } from "../../components/Card/CardsGrid";
+import { CardsGrid } from "../../components/Cards/CardsGrid";
 import { styled } from "styled-components";
 
 const StyledHome = styled.div`
