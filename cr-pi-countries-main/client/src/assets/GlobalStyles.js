@@ -1,12 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
-
- const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.primary};
     color: ${(props) => props.theme.text};
     overflow-x: hidden;
   }
+  
   *{
      font-family: Montserrat;
      color: ${(props) => props.theme.text}
@@ -23,10 +23,6 @@ import { createGlobalStyle } from "styled-components";
     color: ${(props) => props.theme.textDisabled} ;
     cursor: default;
     pointer-events: none;
-
-    .disabled-icon{
-      color: red;
-    }
 
 
   }
@@ -75,7 +71,6 @@ line-height: normal;
   
   .hidden{
     display: none
-  }`
-
+  }`;
 
 export default GlobalStyle;

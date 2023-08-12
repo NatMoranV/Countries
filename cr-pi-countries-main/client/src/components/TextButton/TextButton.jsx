@@ -27,9 +27,9 @@ line-height: 3rem;
 
 `
 
-export const TextButton = ({text, isActive}) =>{
+export const TextButton = ({text, isActive, type}) =>{
     return(
-<StyledTextButton className={isActive ? "active" : ""}>
+<StyledTextButton className={isActive ? "active" : ""} type={type}>
     {text}
 </StyledTextButton>
     )

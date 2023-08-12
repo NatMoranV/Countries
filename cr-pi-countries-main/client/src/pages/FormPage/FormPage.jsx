@@ -1,11 +1,18 @@
+import { styled } from "styled-components"
 import CreateActivityForm from "./CreateActivityForm"
+
+
+
+const StyledFormPage = styled.div`
+
+
+`
 
 export const FormPage = () =>{
 
     return(
-        <div>
-            <h1>Esta es la Form</h1>
+        <StyledFormPage>
             <CreateActivityForm/>
-        </div>
+        </StyledFormPage>
     )
 }

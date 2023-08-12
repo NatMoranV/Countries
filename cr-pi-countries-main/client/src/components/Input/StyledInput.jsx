@@ -31,7 +31,7 @@ const InputField = styled.input`
 `;
 
 const Helper = styled.span`
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -48,13 +48,16 @@ const Button = styled.button`
 `;
 
 export const StyledInput = ({
+  name,
+  id,
   label,
   placeholder,
   type,
   icono,
   helper,
-  actionButton,
+  onClick,
   onChange,
+  onBlur,
   value,
   onKeyDown,
 }) => {
@@ -63,14 +66,19 @@ export const StyledInput = ({
       <Label>{label}</Label>
       <InputField
         type={type}
+        id={id}
+        name={name}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
       />
-      <Button onClick={actionButton}>
-        <FontAwesomeIcon icon={icono} />
-      </Button>
+      {onClick && (
+        <Button onClick={onClick}>
+          <FontAwesomeIcon icon={icono} />
+        </Button>
+      )}
       <Helper>{helper}</Helper>
     </InputContainer>
   );

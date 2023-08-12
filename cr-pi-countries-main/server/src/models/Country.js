@@ -40,4 +40,7 @@ id: {
       allowNull: false,
     },
   }, {timestamps: false});
-};
+}
+
+
+

@@ -29,4 +29,6 @@ name: {
     allowNull: false,
   },
 
+
+
 }, {timestamps: false})}

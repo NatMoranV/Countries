@@ -37,7 +37,7 @@ export const NavBar = () => {
 
           <LogoText/>
           <NavLink to={`/home`}><TextButton text="Home" isActive={location.pathname === "/home"}/></NavLink>
-          <NavLink to={`/activities`}><TextButton text="Crear Actividad" isActive={location.pathname === "/activities"}/></NavLink>
+          <NavLink to={`/setActivity`}><TextButton text="Crear Actividad" isActive={location.pathname === "/setActivity"}/></NavLink>
 
       </StyledNavBarContainer>
 

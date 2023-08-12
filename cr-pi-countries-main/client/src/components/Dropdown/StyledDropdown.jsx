@@ -34,6 +34,7 @@ const StyledDropdown = styled.select`
   }
 `;
 
+
 const DropdownIcon = styled.span`
   position: absolute;
   background: transparent;
@@ -43,23 +44,35 @@ const DropdownIcon = styled.span`
   font-size: 1.1rem;
 `;
 
-export const Dropdown = ({
+const Helper = styled.span`
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const Dropdown = ({onBlur,
+  name,
   option1,
   label,
   array,
   id,
   selectedValue,
   onChange,
+  helper,
 }) => {
   const isDisabled = !array || array.length === 0;
 
   return (
     <DropdownContainer>
-      <label htmlFor="continent">{label}</label>
+      <label htmlFor={id}>{label}</label>
       <StyledDropdown
+        name={name}
+        id={id}
         className={isDisabled ? "disabled" : ""}
         value={selectedValue}
         onChange={onChange}
+        onBlur={onBlur}
       >
         <option value={option1}>{option1}</option>
         {array.map((item, index) => (
@@ -71,32 +84,7 @@ export const Dropdown = ({
       <DropdownIcon>
         <FontAwesomeIcon icon={faCaretDown} />
       </DropdownIcon>
+      <Helper>{helper}</Helper>
     </DropdownContainer>
   );
 };
-//     return (<DropdownContainer>
-//         <label htmlFor="continent">{text}</label>
-//         <StyledDropdown className="disabled" id={id} value={value} onChange={onChange}>
-//           <option value="">Todos</option>
-//           {array.map((item, index) => (
-//             <option key={index} value={item}>
-//               {item}
-//             </option>
-//           ))}
-//         </StyledDropdown>
-//         <DropdownIcon>
-//           <FontAwesomeIcon icon={faCaretDown} className={"disabled" ? "disabled-icon" : ""}/>
-//         </DropdownIcon>
-//       </DropdownContainer>)
-//   }
-// const ContinentFilter = ({ continents, selectedContinent, onContinentChange }) => {
-//     if (!continents || continents.length === 0) {
-//       return null; // Mostrar algún indicador de carga o simplemente no renderizar si no hay datos
-//     }
-
-//     return (
-//       <div className="filter">
-
-//       </div>
-//     );
-//   };

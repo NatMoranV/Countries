@@ -17,7 +17,7 @@ import { StyledInput } from "../Input/StyledInput";
 import { CircleButton } from "../CircleButton/CircleButton";
 
 const StyledCardsGrid = styled.div`
-  margin: 5vh ;
+  margin: 5vh;
   display: grid;
   gap: 3rem;
   grid-auto-rows: auto;
@@ -41,14 +41,12 @@ const ButtonsContainer = styled.div`
 `;
 
 const PaginationContainer = styled.div`
-
-display: flex;
-align-items: center;
-gap: 0.875rem;
-justify-content: flex-end;
-margin-bottom: 5rem;
-
-`
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  justify-content: flex-end;
+  margin-bottom: 5rem;
+`;
 
 export const CardsGrid = () => {
   const [data, setData] = useState([]);
@@ -99,7 +97,9 @@ export const CardsGrid = () => {
     }
 
     if (selectedActivity) {
-      thisActivity = activities.find((e) => e.id == selectedActivity);
+      thisActivity = activities.find(
+        (activity) => activity.name === selectedActivity
+      );
       filteredData = thisActivity.Countries;
     }
 
@@ -147,17 +147,6 @@ export const CardsGrid = () => {
     setSearchValue(event.target.value);
   };
 
-  const handleSearch = () => {
-    dispatch(setName(searchValue));
-    onSearch(searchValue);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -199,11 +188,8 @@ export const CardsGrid = () => {
           placeholder={"Ex. Mexico / MEX "}
           type={"text"}
           helper={"Puedes buscar por nombre o código internacional (ISO)"}
-          actionButton={handleSearch}
-          icono={faSearch}
           onChange={handleInputChange}
           value={searchValue}
-          onKeyDown={handleKeyDown}
         />
         <ButtonsContainer>
           <Dropdown
@@ -222,10 +208,15 @@ export const CardsGrid = () => {
           <Dropdown
             label={"Filtrar por actividad"}
             option1={"Todas"}
-            array={activities}
+            array={activities.map((activity) => activity.name)}
             id={selectedActivity}
             selectedValue={selectedActivity}
-            onChange={(e) => setSelectedActivity(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "Todas") {
+                setSelectedActivity("");
+              } else setSelectedActivity(value);
+            }}
           />
           <Dropdown
             label={"Ordenar por"}
@@ -234,17 +225,16 @@ export const CardsGrid = () => {
             selectedValue={sortField}
             onChange={(e) => setSortField(e.target.value)}
           />
-         
           <CircleButton
             icon={faArrowDown}
             onClick={handleSortAsc}
             className={sortOrder === "asc" ? "active" : ""}
-          /> <CircleButton
+          />{" "}
+          <CircleButton
             icon={faArrowUp}
             onClick={handleSortDesc}
             className={sortOrder === "desc" ? "active" : ""}
           />
-
           <CircleButton onClick={clearFilters} icon={faFilterCircleXmark} />
         </ButtonsContainer>
       </ActionsContainer>
@@ -268,8 +258,12 @@ export const CardsGrid = () => {
 
       {totalPages > 1 && (
         <PaginationContainer>
-          <CircleButton onClick={handlePrevPage} disabled={currentPage === 1} icon={faArrowLeft}/>
-         
+          <CircleButton
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+            icon={faArrowLeft}
+          />
+
           {Array.from({ length: pageEnd - pageStart + 1 }).map((_, index) => {
             const pageNumber = pageStart + index;
             return (
@@ -277,10 +271,8 @@ export const CardsGrid = () => {
                 key={pageNumber}
                 onClick={() => handlePageChange(pageNumber)}
                 className={currentPage === pageNumber ? "active" : ""}
-                content = {pageNumber}
-              >
-                
-              </CircleButton>
+                content={pageNumber}
+              ></CircleButton>
             );
           })}
           <CircleButton
