@@ -7,12 +7,13 @@ const InputContainer = styled.div`
   align-items: flex-start;
   gap: 1rem;
   position: relative;
-  width: 90%;
+  width: 100%;
   box-sizing: border-box;
+  min-width: 20rem;
 `;
 
 const Label = styled.label`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -28,6 +29,7 @@ const InputField = styled.input`
   background-color: ${(props) => props.theme.primary};
   box-shadow: ${(props) => props.theme.pressedShadow};
   border: none;
+  box-sizing: border-box;
 `;
 
 const Helper = styled.span`

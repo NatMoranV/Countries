@@ -1,22 +1,18 @@
 import styled from "styled-components"
 
 const StyledTextButton = styled.button`
-display: flex;
-padding: 0rem 1.5rem;
-justify-content: center;
-align-items: center;
-gap: 0.625rem;
+padding: 1rem 1.5rem;
 border: none;
 cursor: pointer;
-margin: 1vh 0;
+margin: .5rem 0;
 
 border-radius: 3rem;
 background: ${(props) => props.theme.primary};
 box-shadow: ${(props) => props.theme.shortShadow};
-font-size: 1.5rem;
+font-size: 1rem;
 
 font-weight: 700;
-line-height: 3rem; 
+line-height: 1rem; 
 
 &:active {
     box-shadow: ${(props) => props.theme.pressedShadow};}

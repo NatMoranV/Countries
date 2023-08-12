@@ -22,29 +22,36 @@ import {
   setCurrentPage,
 } from "../../redux/actions";
 
-const StyledCardsGrid = styled.div`
-  margin: 5vh;
-  display: grid;
-  gap: 3rem;
-  grid-auto-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-`;
-
 const ActionsContainer = styled.div`
   display: flex;
-  padding: 3rem 10rem;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  align-self: stretch;
+  gap: 3rem;
+  margin-top: 3rem;
 `;
 
 const ButtonsContainer = styled.div`
+
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+  box-sizing: border-box;
+`;
+
+const CircleButtonsContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 2.125rem;
   justify-content: space-between;
-  width: 100%;
+  width: auto;
+  padding-top: 1.2rem;
+  box-sizing: border-box;
+`;
+
+const StyledCardsGrid = styled.div`
+  margin: 3rem 0;
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 `;
 
 const PaginationContainer = styled.div`
@@ -114,8 +121,10 @@ export const CardsGrid = () => {
     }
 
     if (searchValue) {
-      filteredData = filteredData.filter((country) =>
-        country.name.toLowerCase().includes(searchValue.toLowerCase())
+      filteredData = filteredData.filter(
+        (country) =>
+          country.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          country.id.toString().toLowerCase() === searchValue.toLowerCase()
       );
     }
 
@@ -231,17 +240,19 @@ export const CardsGrid = () => {
             selectedValue={sortField}
             onChange={(e) => handleSortFieldChange(e.target.value)}
           />
-          <CircleButton
-            icon={faArrowDown}
-            onClick={handleSortAsc}
-            className={sortOrder === "asc" ? "active" : ""}
-          />
-          <CircleButton
-            icon={faArrowUp}
-            onClick={handleSortDesc}
-            className={sortOrder === "desc" ? "active" : ""}
-          />
-          <CircleButton onClick={clearFilters} icon={faFilterCircleXmark} />
+          <CircleButtonsContainer>
+            <CircleButton
+              icon={faArrowDown}
+              onClick={handleSortAsc}
+              className={sortOrder === "asc" ? "active" : ""}
+            />
+            <CircleButton
+              icon={faArrowUp}
+              onClick={handleSortDesc}
+              className={sortOrder === "desc" ? "active" : ""}
+            />
+            <CircleButton onClick={clearFilters} icon={faFilterCircleXmark} />
+          </CircleButtonsContainer>
         </ButtonsContainer>
       </ActionsContainer>
       <StyledCardsGrid>

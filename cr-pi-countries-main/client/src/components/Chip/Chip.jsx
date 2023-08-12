@@ -10,6 +10,7 @@ width: auto;
 display: inline-flex;
 padding: 1rem 1.5rem;
 align-items: center;
+justify-content: space-between;
 gap: 0.625rem;
 border: none;
 cursor: pointer;

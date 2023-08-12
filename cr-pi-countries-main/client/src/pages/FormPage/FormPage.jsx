@@ -5,6 +5,7 @@ import CreateActivityForm from "./CreateActivityForm"
 
 const StyledFormPage = styled.div`
 
+margin-top: 10rem;
 
 `
 

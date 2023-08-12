@@ -6,8 +6,7 @@ import { styled } from "styled-components";
 
 export const StyledCard = styled.div`
 display: flex;
-width: 15rem;
-height: auto;
+gap: 2rem;
 padding: 1rem 1rem;
 flex-direction: column;
 justify-content: space-between;

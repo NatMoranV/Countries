@@ -8,6 +8,8 @@ const GlobalStyle = createGlobalStyle`
   }
   
   *{
+    margin: 0;
+    padding: 0;
      font-family: Montserrat;
      color: ${(props) => props.theme.text}
   }

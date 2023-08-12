@@ -5,6 +5,23 @@ import { StyledInput } from "../../components/Input/StyledInput";
 import { Dropdown } from "../../components/Dropdown/StyledDropdown";
 import { Chip } from "../../components/Chip/Chip";
 import { TextButton } from "../../components/TextButton/TextButton";
+import { styled } from "styled-components";
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  margin: auto;
+  gap: 2rem;
+
+`;
+
+const ChipsContainer = styled.div`
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+`;
 
 const CreateActivityForm = () => {
   const [data, setData] = useState([]);
@@ -116,7 +133,7 @@ const CreateActivityForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledInput
         name="name"
         id="name"
@@ -126,15 +143,6 @@ const CreateActivityForm = () => {
         helper={"Máximo 10 dígitos"}
         onChange={handleChange}
         value={activityData.name}
-      />
-
-      <Dropdown
-        name="difficulty"
-        label={"Dificultad"}
-        array={dificultad}
-        id={"difficulty"}
-        value={Number(activityData.difficulty)}
-        onChange={handleChange}
       />
 
       <StyledInput
@@ -152,12 +160,22 @@ const CreateActivityForm = () => {
       />
 
       <Dropdown
+        name="difficulty"
+        label={"Dificultad"}
+        array={dificultad}
+        id={"difficulty"}
+        value={Number(activityData.difficulty)}
+        onChange={handleChange}
+      />
+
+      <Dropdown
         name="season"
         label={"Temporada"}
         array={temporadas}
         id={"season"}
         value={activityData.season}
         onChange={handleChange}
+        placeholder={"Selecciona una opción"}
       />
 
       <Dropdown
@@ -172,16 +190,17 @@ const CreateActivityForm = () => {
       />
 
       <p>Selecciones:</p>
-      {Array.from(selectedValues).map((value, index) => (
-        <Chip
-          key={index}
-          text={value}
-          onClick={() => removeFromSelectedCountries(value)}
-        />
-      ))}
-
+      <ChipsContainer>
+        {Array.from(selectedValues).map((value, index) => (
+          <Chip
+            key={index}
+            text={value}
+            onClick={() => removeFromSelectedCountries(value)}
+          />
+        ))}
+      </ChipsContainer>
       <TextButton type="submit" text={"Crear"} />
-    </form>
+    </StyledForm>
   );
 };
 

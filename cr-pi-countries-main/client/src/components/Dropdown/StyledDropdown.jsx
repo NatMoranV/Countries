@@ -5,12 +5,16 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const DropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 14rem;
+  width: auto;
   position: relative;
-  && label {
-  }
+  min-width: 20rem;
 `;
-
+const Label = styled.label`
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
 const StyledDropdown = styled.select`
   appearance: none;
   display: flex;
@@ -34,7 +38,6 @@ const StyledDropdown = styled.select`
   }
 `;
 
-
 const DropdownIcon = styled.span`
   position: absolute;
   background: transparent;
@@ -51,7 +54,8 @@ const Helper = styled.span`
   line-height: normal;
 `;
 
-export const Dropdown = ({onBlur,
+export const Dropdown = ({
+  onBlur,
   name,
   option1,
   label,
@@ -65,7 +69,7 @@ export const Dropdown = ({onBlur,
 
   return (
     <DropdownContainer>
-      <label htmlFor={id}>{label}</label>
+      <Label htmlFor={id}>{label}</Label>
       <StyledDropdown
         name={name}
         id={id}
@@ -74,7 +78,7 @@ export const Dropdown = ({onBlur,
         onChange={onChange}
         onBlur={onBlur}
       >
-        <option value={option1}>{option1}</option>
+        {option1 && (<option value={option1}>{option1}</option>)}
         {array.map((item, index) => (
           <option key={index} value={item}>
             {item}
@@ -88,3 +92,4 @@ export const Dropdown = ({onBlur,
     </DropdownContainer>
   );
 };
+
