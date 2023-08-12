@@ -1,30 +1,49 @@
 const initialState = {
-  name: "",
+  selectedContinent: "",
+  selectedActivity: "",
+  sortOrder: "asc",
+  sortField: "name",
+  searchValue: "",
+  currentPage: 1,
+  activities: [],
 };
 
-const reducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_NAME":
+    case "SET_FILTERS":
       return {
         ...state,
-        name: action.payload, 
+        selectedContinent: action.payload.continent,
+        selectedActivity: action.payload.activity,
+        currentPage: 1,
       };
-    
+    case "SET_SORT":
+      return {
+        ...state,
+        sortField: action.payload.field,
+        sortOrder: action.payload.order,
+        currentPage: 1,
+      };
+    case "SET_SEARCH_VALUE":
+      return {
+        ...state,
+        searchValue: action.payload,
+        currentPage: 1,
+      };
+    case "SET_CURRENT_PAGE":
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
+
+    case "SET_ACTIVITIES":
+      return {
+        ...state,
+        activities: action.payload,
+      };
     default:
       return state;
-
-      case "FILTER":
-        const { continent, activity } = payload; 
-        // Filtrar por género o estado
-        const filteredCountries = state.allCountries.filter(
-          (country) => country.continent === continent || country.activity === activity
-        );
-      
-        return {
-          ...state,
-          myCountries: filteredCountries,
-        };
   }
 };
 
-export default reducer;
+export default rootReducer;

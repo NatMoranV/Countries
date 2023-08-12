@@ -1,32 +1,19 @@
-import { useState } from "react";
+export const setFilters = (continent, activity) => ({
+  type: "SET_FILTERS",
+  payload: { continent, activity },
+});
 
-  export const setName = (name) => {
-    return {
-      type: "SET_NAME",
-      payload: name,
-    };
-  };
+export const setSort = (field, order) => ({
+  type: "SET_SORT",
+  payload: { field, order },
+});
 
-  export const clearName = () => {
-    return {
-      type: "CLEAR_NAME",
-    };
-  };
+export const setSearchValue = (searchValue) => ({
+  type: "SET_SEARCH_VALUE",
+  payload: searchValue,
+});
 
-
-
-  export const useSearchActions = () => {
-    const [searchValue, setSearchValue] = useState("");
-  
-    const handleSearch = (value) => {
-      setSearchValue(value);
-    };
-  
-    const handleClearFilter = () => {
-      setSearchValue("");
-    };
-  
-    return { searchValue, handleSearch, handleClearFilter };
-  };
-
-  
+export const setCurrentPage = (currentPage) => ({
+  type: "SET_CURRENT_PAGE",
+  payload: currentPage,
+});

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Card } from "./Card";
 import { Dropdown } from "../Dropdown/StyledDropdown";
@@ -15,6 +15,12 @@ import {
 import { styled } from "styled-components";
 import { StyledInput } from "../Input/StyledInput";
 import { CircleButton } from "../CircleButton/CircleButton";
+import {
+  setFilters,
+  setSort,
+  setSearchValue,
+  setCurrentPage,
+} from "../../redux/actions";
 
 const StyledCardsGrid = styled.div`
   margin: 5vh;
@@ -23,6 +29,7 @@ const StyledCardsGrid = styled.div`
   grid-auto-rows: auto;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 `;
+
 const ActionsContainer = styled.div`
   display: flex;
   padding: 3rem 10rem;
@@ -49,18 +56,21 @@ const PaginationContainer = styled.div`
 `;
 
 export const CardsGrid = () => {
-  const [data, setData] = useState([]);
-  const [activities, setActivities] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedContinent, setSelectedContinent] = useState("");
-  const [selectedActivity, setSelectedActivity] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] = useState("name");
-  const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
+  const {
+    selectedContinent,
+    selectedActivity,
+    sortOrder,
+    sortField,
+    searchValue,
+    currentPage,
+    activities,
+  } = useSelector((state) => state);
 
   const pageSize = 10;
   let thisActivity = {};
 
+  const [data, setData] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:3001/countries")
@@ -76,7 +86,7 @@ export const CardsGrid = () => {
     axios
       .get("http://localhost:3001/activities")
       .then((response) => {
-        setActivities(response.data);
+        dispatch({ type: "SET_ACTIVITIES", payload: response.data }); // Actualiza los datos de actividades en el estado
       })
       .catch((error) => {
         console.error(error);
@@ -141,43 +151,39 @@ export const CardsGrid = () => {
   const pageStart = Math.max(1, currentPage - Math.floor(pageRange / 2));
   const pageEnd = Math.min(totalPages, pageStart + pageRange - 1);
 
-  const dispatch = useDispatch();
-
   const handleInputChange = (event) => {
-    setSearchValue(event.target.value);
+    dispatch(setSearchValue(event.target.value));
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    dispatch(setCurrentPage(pageNumber));
   };
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(1, prevPage - 1));
+    dispatch(setCurrentPage(Math.max(1, currentPage - 1)));
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1));
+    dispatch(setCurrentPage(Math.min(totalPages, currentPage + 1)));
   };
 
   const handleSortFieldChange = (field) => {
-    setSortField(field);
+    dispatch(setSort(field, sortOrder));
   };
 
   const handleSortAsc = () => {
-    setSortOrder("asc");
+    dispatch(setSort(sortField, "asc"));
   };
 
   const handleSortDesc = () => {
-    setSortOrder("desc");
+    dispatch(setSort(sortField, "desc"));
   };
 
   const clearFilters = () => {
-    setSelectedContinent("");
-    setSelectedActivity("");
-    setSortOrder("asc");
-    setSortField("name");
-    setCurrentPage(1);
-    setSearchValue("");
+    dispatch(setFilters("", ""));
+    dispatch(setSort("name", "asc"));
+    dispatch(setCurrentPage(1));
+    dispatch(setSearchValue(""));
   };
 
   return (
@@ -201,8 +207,8 @@ export const CardsGrid = () => {
             onChange={(e) => {
               const value = e.target.value;
               if (value === "Todos") {
-                setSelectedContinent("");
-              } else setSelectedContinent(value);
+                dispatch(setFilters("", selectedActivity));
+              } else dispatch(setFilters(value, selectedActivity));
             }}
           />
           <Dropdown
@@ -214,8 +220,8 @@ export const CardsGrid = () => {
             onChange={(e) => {
               const value = e.target.value;
               if (value === "Todas") {
-                setSelectedActivity("");
-              } else setSelectedActivity(value);
+                dispatch(setFilters(selectedContinent, ""));
+              } else dispatch(setFilters(selectedContinent, value));
             }}
           />
           <Dropdown
@@ -223,13 +229,13 @@ export const CardsGrid = () => {
             option1={"name"}
             array={orderers}
             selectedValue={sortField}
-            onChange={(e) => setSortField(e.target.value)}
+            onChange={(e) => handleSortFieldChange(e.target.value)}
           />
           <CircleButton
             icon={faArrowDown}
             onClick={handleSortAsc}
             className={sortOrder === "asc" ? "active" : ""}
-          />{" "}
+          />
           <CircleButton
             icon={faArrowUp}
             onClick={handleSortDesc}
