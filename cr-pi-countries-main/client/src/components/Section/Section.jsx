@@ -9,7 +9,7 @@ const StyledSection = styled.div`
 display: flex;
 padding: 10rem 7.5625rem;
 flex-direction: column;
-align-items: flex-start;
+align-items: center;
 gap: 6.5rem;
 align-self: stretch;
 position: relative;
@@ -19,11 +19,15 @@ margin: 5vh 0;
 padding: 10vh 10vw ;
 width: 98.1%;
 
+@media (min-width: 768px) {
+    left: -10vw;
+  }
+
 background: ${(props) => props.theme.primary};
 box-shadow: ${(props) => props.theme.largeShadow};
 
 p{
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
 }
 
  a {
@@ -38,9 +42,9 @@ export const Section = () =>{
         <h1>
             ¡Únete a nuestra comunidad global y empieza tu aventura de descubrimiento! 
         </h1>
-        <p>Haz clic en el botón para explorar nuestro catálogo de países.</p>
+        <p>Haz clic en el botón para explorar nuestro catálogo de países o continúa bajando para conocer más de nosotros.</p>
         <NavLink to="/home" >
-          <TextButton text="Explorar"/>
+          <TextButton text="Explorar ahora"/>
         </NavLink>
 
         </StyledSection>

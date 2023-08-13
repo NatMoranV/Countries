@@ -5,9 +5,9 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const DropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 100%;
   position: relative;
-  min-width: 20rem;
+  min-width: 25rem;
 `;
 const Label = styled.label`
   font-size: 1rem;
@@ -19,10 +19,8 @@ const StyledDropdown = styled.select`
   appearance: none;
   display: flex;
   height: 4.5rem;
-  padding: 1rem 1.5rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
+  padding: 0 2rem;
+  vertical-align: auto;
   border: none;
   cursor: pointer;
   margin: 1rem 0;
@@ -42,16 +40,17 @@ const DropdownIcon = styled.span`
   position: absolute;
   background: transparent;
   border: none;
-  top: 4rem;
+  top: 3.5rem;
   right: 1.5rem;
   font-size: 1.1rem;
 `;
 
 const Helper = styled.span`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-align: left;
 `;
 
 export const Dropdown = ({

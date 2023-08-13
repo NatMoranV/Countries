@@ -1,9 +1,27 @@
 
 import { Hero } from "../../components/Hero/Hero";
-import { StyledLandingPage } from "./StyledLandingPage";
 import { Section } from "../../components/Section/Section";
 import { GridComponentes } from "../../components/Componente/GridComponentes";
 import { LogoText } from "../../components/Logo/LogoText";
+import { styled } from "styled-components";
+
+const StyledLandingPage = styled.div`
+margin: 5vh 8vw;
+display: flex;
+align-items: center;
+flex-direction: column;
+gap: 1.5rem;
+
+&& .LogoText{
+    margin-bottom: 5rem;
+}
+
+& span{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+`
 
 
 
@@ -26,11 +44,11 @@ export const LandingPage = () => {
       <Section/>
       <h2>¿Qué hace que nuestra plataforma sea única? </h2>
       <GridComponentes/>
-      <p>
-        Todo esto lo ofrecemos de forma completamente gratuita. Nuestro objetivo
+      <span>
+        Todo esto lo ofrecemos de manera completamente gratuita. <br/><br/> Nuestro objetivo
         es compartir el conocimiento y la diversidad de nuestro mundo, para que
         cada usuario tenga una experiencia enriquecedora.
-      </p>
+      </span>
     </StyledLandingPage>
   );
 };

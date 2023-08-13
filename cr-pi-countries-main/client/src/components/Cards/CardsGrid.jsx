@@ -25,8 +25,16 @@ import {
 const ActionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  margin-top: 3rem;
+  gap: 5rem;
+  margin: 5rem 0;
+
+  & .input-container{
+    width: 50%;
+    margin: auto;
+    @media (max-width: 1310px) {
+    width: 100%;
+  }
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -40,10 +48,15 @@ const ButtonsContainer = styled.div`
 
 const CircleButtonsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: auto;
   padding-top: 1.2rem;
   box-sizing: border-box;
+
+  @media (max-width: 1728px) {
+    justify-content: space-between;
+  }
+
 `;
 
 const StyledCardsGrid = styled.div`
@@ -199,6 +212,7 @@ export const CardsGrid = () => {
     <div className="grid-container">
       <ActionsContainer>
         <StyledInput
+        className={"input-container"}
           label={"Buscador"}
           placeholder={"Ex. Mexico / MEX "}
           type={"text"}

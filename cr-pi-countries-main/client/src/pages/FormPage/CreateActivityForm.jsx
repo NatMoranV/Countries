@@ -10,10 +10,13 @@ import { styled } from "styled-components";
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 40vw;
-  margin: auto;
+  align-items: center;
   gap: 2rem;
 
+  & button{
+
+    width: 100%;
+  }
 `;
 
 const ChipsContainer = styled.div`
@@ -28,7 +31,7 @@ const CreateActivityForm = () => {
   const [selectedValues, setSelectedValues] = useState(new Set());
   const [temporaryDuration, setTemporaryDuration] = useState("");
   const dificultad = Array.from({ length: 5 }, (_, i) => i + 1);
-  const temporadas = ["Primavera", "Verano", "Otoño", "Invierno"];
+  const temporadas = ["Cualquier temporada","Primavera", "Verano", "Otoño", "Invierno"];
 
   useEffect(() => {
     axios
@@ -51,7 +54,6 @@ const CreateActivityForm = () => {
     season: "",
     countries: [],
   });
-  console.log(activityData.countries);
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -103,8 +105,6 @@ const CreateActivityForm = () => {
       return;
     }
 
-    console.log(activityData);
-
     try {
       // Enviar los datos al servidor
       const response = await axios.post(
@@ -137,10 +137,10 @@ const CreateActivityForm = () => {
       <StyledInput
         name="name"
         id="name"
-        label={"Nombre de la actividad"}
+        label={"¿Cómo se llama la actividad?"}
         placeholder={"Ej. Nadar "}
         type={"text"}
-        helper={"Máximo 10 dígitos"}
+        helper={"Máximo 10 dígitos."}
         onChange={handleChange}
         value={activityData.name}
       />
@@ -148,10 +148,10 @@ const CreateActivityForm = () => {
       <StyledInput
         name="duration"
         id="duration"
-        label={"Duración de la actividad"}
+        label={"¿Cuánto tiempo dura?"}
         placeholder={"Ej. 90 "}
         type={"number"}
-        helper={"Tiempo en minutos"}
+        helper={"Tiempo en minutos."}
         onChange={(e) => {
           setTemporaryDuration(Number(e.target.value));
         }}
@@ -161,35 +161,34 @@ const CreateActivityForm = () => {
 
       <Dropdown
         name="difficulty"
-        label={"Dificultad"}
+        label={"¿Cuál es el nivel de dificultad?"}
         array={dificultad}
         id={"difficulty"}
         value={Number(activityData.difficulty)}
         onChange={handleChange}
+        helper={"El nivel se mide del 1 al 5 donde 1 es el más fácil."}
       />
 
       <Dropdown
         name="season"
-        label={"Temporada"}
+        label={"¿Durante qué temporada se puede realizar?"}
         array={temporadas}
         id={"season"}
         value={activityData.season}
         onChange={handleChange}
-        placeholder={"Selecciona una opción"}
+        helper={"Selecciona una opción"}
       />
 
       <Dropdown
         name="countries"
-        label={"País / Países"}
+        label={"¿En cuál país se puede realizar?"}
         array={arrayCountries}
         id={"countries"}
         value={Array.from(selectedValues)}
         onChange={handleSelectedCountries}
-        helper={"test"}
+        helper={"Puedes seleccionar más de un país, los verás aquí."}
         onBlur={handleChange}
       />
-
-      <p>Selecciones:</p>
       <ChipsContainer>
         {Array.from(selectedValues).map((value, index) => (
           <Chip

@@ -48,8 +48,8 @@ export const DetailCard = (props) => {
       <div><h5>Continente: </h5><h5>{continent}</h5></div>
       <div><h5>Capital: </h5><h5>{capital}</h5></div>
       <div><h5>Subregión: </h5><h5>{subregion}</h5></div>
-      <div><h5>Área: </h5><h5>{area}</h5></div>
-      <div><h5>Población: </h5><h5>{population}</h5></div>
+      <div><h5>Área: </h5><h5>{area} km²</h5></div>
+      <div><h5>Población: </h5><h5>{population} hab</h5></div>
       <NavLink to={`/home`}><TextButton text="Volver"/></NavLink>
     </StyledCard>
   );

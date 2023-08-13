@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { CardsGrid } from "../../components/Cards/CardsGrid";
 import { styled } from "styled-components";
 
 const StyledHome = styled.div`
-  margin-top: 10rem;
-  padding: 0 5rem 0 5rem;
+  margin-top: 6rem;
+  padding: 0 1rem;
 `;
 
 export const HomePage = () => {

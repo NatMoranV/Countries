@@ -20,23 +20,23 @@ const Label = styled.label`
 `;
 
 const InputField = styled.input`
-  display: flex;
   width: 100%;
   height: 4.5rem;
-  padding: 0rem 1.5rem;
-  justify-content: space-between;
+  padding: 0rem 2rem;
   border-radius: 3rem;
   background-color: ${(props) => props.theme.primary};
   box-shadow: ${(props) => props.theme.pressedShadow};
   border: none;
   box-sizing: border-box;
+  min-width: 25rem;
 `;
 
 const Helper = styled.span`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-align: left;
 `;
 
 const Button = styled.button`
@@ -50,6 +50,7 @@ const Button = styled.button`
 `;
 
 export const StyledInput = ({
+  className,
   name,
   id,
   label,
@@ -64,7 +65,7 @@ export const StyledInput = ({
   onKeyDown,
 }) => {
   return (
-    <InputContainer>
+    <InputContainer className={className}>
       <Label>{label}</Label>
       <InputField
         type={type}

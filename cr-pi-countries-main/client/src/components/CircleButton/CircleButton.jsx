@@ -19,6 +19,12 @@ const StyledCircleButton = styled.button`
   line-height: 3rem;
   cursor: pointer;
 
+  &.small{
+    width: 3rem;
+    height: 3rem;
+    margin: 0;
+  }
+
   &:active {
     box-shadow: ${(props) => props.theme.pressedShadow};
   }
