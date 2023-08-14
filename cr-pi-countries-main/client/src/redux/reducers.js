@@ -1,10 +1,11 @@
-import {SET_FILTERS,
+
+
+import {
+  SET_FILTERS,
   SET_SORT,
   SET_SEARCH_VALUE,
   SET_CURRENT_PAGE,
-  TOGGLE_THEME,} from "../redux/actions"
-
-
+} from "../redux/actions";
 
 const initialState = {
   selectedContinent: "",
@@ -14,7 +15,6 @@ const initialState = {
   searchValue: "",
   currentPage: 1,
   activities: [],
-  isDarkTheme: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,6 +50,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activities: action.payload,
       };
+
     default:
       return state;
   }

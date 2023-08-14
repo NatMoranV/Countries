@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.primary};
     color: ${(props) => props.theme.text};
     overflow-x: hidden;
+    transition: color, background-color 0.3s ease;
   }
   
   *{
@@ -76,7 +77,7 @@ text-align: center ;
   }
   
   path {
-    fill: ${props => props.theme.text};
+    fill: ${(props) => props.theme.text};
   }
   
   .hidden{
@@ -89,5 +90,5 @@ text-align: center ;
     text-align: center;
   }
 }
-`
+`;
 export default GlobalStyle;

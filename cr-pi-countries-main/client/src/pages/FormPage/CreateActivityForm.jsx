@@ -13,17 +13,17 @@ const StyledForm = styled.form`
   align-items: center;
   gap: 2rem;
 
-  & button{
-
+  & > button {
     width: 100%;
   }
 `;
 
 const ChipsContainer = styled.div`
+width: 27rem;
   display: grid;
   gap: 1rem;
   grid-auto-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
 `;
 
 const CreateActivityForm = () => {
@@ -31,7 +31,13 @@ const CreateActivityForm = () => {
   const [selectedValues, setSelectedValues] = useState(new Set());
   const [temporaryDuration, setTemporaryDuration] = useState("");
   const dificultad = Array.from({ length: 5 }, (_, i) => i + 1);
-  const temporadas = ["Cualquier temporada","Primavera", "Verano", "Otoño", "Invierno"];
+  const temporadas = [
+    "Cualquier temporada",
+    "Primavera",
+    "Verano",
+    "Otoño",
+    "Invierno",
+  ];
 
   useEffect(() => {
     axios
@@ -49,9 +55,9 @@ const CreateActivityForm = () => {
 
   const [activityData, setActivityData] = useState({
     name: "",
-    difficulty: 0,
+    difficulty: 1,
     duration: "",
-    season: "",
+    season: "Cualquier temporada",
     countries: [],
   });
   const handleChange = (e) => {
@@ -121,9 +127,9 @@ const CreateActivityForm = () => {
       // Limpiar el formulario después de enviar los datos
       setActivityData({
         name: "",
-        difficulty: 0,
+        difficulty: 1,
         duration: "",
-        season: "",
+        season: "Cualquier temporada",
         countries: [],
       });
       setSelectedValues(new Set());
