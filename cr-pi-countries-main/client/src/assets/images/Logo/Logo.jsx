@@ -1,5 +1,13 @@
-import { StyledLogo } from "./StyledLogo";
 
+import { styled } from "styled-components";
+
+const StyledLogo = styled.svg`
+width: 32px;
+  height: 32px;
+  path {
+    fill: ${(props) => props.theme.text};
+  }
+`
 export const Logo = () => {
   return (
     <StyledLogo xmlns="http://www.w3.org/2000/svg">

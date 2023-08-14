@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { LogoText } from "../Logo/LogoText";
+
 import { TextButton } from "../TextButton/TextButton";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,6 +10,9 @@ import {
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import { CircleButton } from "../CircleButton/CircleButton";
+import { LogoText } from "../../assets/images/Logo/LogoText";
+
+
 
 const StyledNavBarContainer = styled.nav`
   display: flex;

@@ -1,7 +1,19 @@
 import { Logo } from "./Logo"
-import { StyledLogoText } from "./StyledLogoText"
 
+import { styled } from "styled-components";
 
+const StyledLogoText = styled.div`
+
+display: flex;
+align-items: center;
+gap: .5rem;
+
+&& h6{
+    margin: 0;
+    padding: 0;
+}
+
+`
 
 
 export const LogoText = () =>{

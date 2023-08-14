@@ -2,8 +2,8 @@
 import { Hero } from "../../components/Hero/Hero";
 import { Section } from "../../components/Section/Section";
 import { GridComponentes } from "../../components/Componente/GridComponentes";
-import { LogoText } from "../../components/Logo/LogoText";
 import { styled } from "styled-components";
+import { LogoText } from "../../assets/images/Logo/LogoText";
 
 const StyledLandingPage = styled.div`
 margin: 5vh 8vw;
