@@ -27,6 +27,11 @@ align-self: stretch;
 object-fit: cover;
 border-radius: .5rem;
 }
+
+&:hover{
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
 `
 
 

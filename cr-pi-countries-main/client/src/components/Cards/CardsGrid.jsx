@@ -22,58 +22,7 @@ import {
   setCurrentPage,
 } from "../../redux/actions";
 
-const ActionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-  margin: 5rem 0;
 
-  & .input-container{
-    width: 50%;
-    margin: auto;
-    @media (max-width: 1310px) {
-    width: 100%;
-  }
-  }
-`;
-
-const ButtonsContainer = styled.div`
-
-  display: grid;
-  gap: 2rem;
-  grid-auto-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
-  box-sizing: border-box;
-`;
-
-const CircleButtonsContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: auto;
-  padding-top: 1.2rem;
-  box-sizing: border-box;
-
-  @media (max-width: 1728px) {
-    justify-content: space-between;
-  }
-
-`;
-
-const StyledCardsGrid = styled.div`
-  margin: 3rem 0;
-  display: grid;
-  gap: 2rem;
-  grid-auto-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-`;
-
-const PaginationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  justify-content: flex-end;
-  margin-bottom: 5rem;
-`;
 
 export const CardsGrid = () => {
   const dispatch = useDispatch();
@@ -93,7 +42,7 @@ export const CardsGrid = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/countries")
+      .get("/countries")
       .then((response) => {
         setData(response.data);
       })
@@ -104,7 +53,7 @@ export const CardsGrid = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/activities")
+      .get("/activities")
       .then((response) => {
         dispatch({ type: "SET_ACTIVITIES", payload: response.data }); // Actualiza los datos de actividades en el estado
       })
@@ -316,3 +265,56 @@ export const CardsGrid = () => {
     </div>
   );
 };
+
+const ActionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin: 5rem 0;
+
+  & .input-container{
+    width: 50%;
+    margin: auto;
+    @media (max-width: 1310px) {
+    width: 100%;
+  }
+  }
+`;
+
+const ButtonsContainer = styled.div`
+
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+  box-sizing: border-box;
+`;
+
+const CircleButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: auto;
+  padding-top: 1.2rem;
+  box-sizing: border-box;
+
+  @media (max-width: 1728px) {
+    justify-content: space-between;
+  }
+
+`;
+
+const StyledCardsGrid = styled.div`
+  margin: 3rem 0;
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+`;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  justify-content: flex-end;
+  margin-bottom: 5rem;
+`;

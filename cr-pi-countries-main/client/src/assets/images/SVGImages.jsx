@@ -76,8 +76,8 @@ export const StyledResponsivenesSVG = () =>{
 
   return (
 
-<StyledSVG fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-viewBox="0 0 480 480" xml:space="preserve">
+<StyledSVG fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 480 480" >
 
 <g>
 	<g>

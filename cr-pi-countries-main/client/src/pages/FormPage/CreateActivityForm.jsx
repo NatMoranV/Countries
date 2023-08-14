@@ -41,7 +41,7 @@ const CreateActivityForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/countries")
+      .get("/countries")
       .then((response) => {
         setData(response.data);
       })
@@ -99,7 +99,7 @@ const CreateActivityForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar que todos los campos estén completos
+
     if (
       !activityData.name ||
       !activityData.difficulty ||
@@ -112,9 +112,8 @@ const CreateActivityForm = () => {
     }
 
     try {
-      // Enviar los datos al servidor
       const response = await axios.post(
-        "http://localhost:3001/activities",
+        "/activities",
         activityData,
         {
           headers: {
@@ -122,9 +121,9 @@ const CreateActivityForm = () => {
           },
         }
       );
-      console.log("Respuesta del servidor:", response.data);
+      alert("Respuesta del servidor:", response.data);
 
-      // Limpiar el formulario después de enviar los datos
+
       setActivityData({
         name: "",
         difficulty: 1,
