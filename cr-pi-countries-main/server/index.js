@@ -8,7 +8,7 @@ const {PORT} = process.env || 3001;
 
 insertCountries()
 
-conn.sync({ alter: true }).then(() => {
+conn.sync({ force: true }).then(() => {
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 })
