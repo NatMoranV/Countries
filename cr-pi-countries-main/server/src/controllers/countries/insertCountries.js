@@ -1,8 +1,12 @@
 const { Country } = require("../../db.js");
+require("dotenv").config();
 const axios = require('axios');
+
+const {URL_DATABASE} = process.env
+
 module.exports = async () => {
   try {
-    let countries =  (await axios.get("http://localhost:5000/countries")).data;;
+    let countries =  (await axios.get(`${URL_DATABASE}/countries`)).data;;
     countries = await Promise.all(
       countries.map(async (country) => {
         if (typeof country.flags[0] === "undefined") {
