@@ -12,7 +12,8 @@ import { NavBar } from "./components/Nav/NavBar";
 import { Footer } from "./components/Footer/Footer";
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:3001'
+// axios.defaults.baseURL = 'http://localhost:3001'
+axios.defaults.baseURL = 'https://countries-production-53c7.up.railway.app/'
 
 export default function App() {
   const { pathname } = useLocation();
