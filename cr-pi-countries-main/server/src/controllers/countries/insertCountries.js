@@ -2,13 +2,13 @@ const { Country } = require("../../db.js");
 require("dotenv").config();
 const axios = require('axios');
 
-const {URL_DATABASE} = process.env
+const {DB_DEPLOY} = process.env
 
 module.exports = async () => {
   try {
 
     
-    const response = await axios(`/countries`); 
+    const response = await axios(`${DB_DEPLOY}/countries`); 
     const countries = response.data;
 
 

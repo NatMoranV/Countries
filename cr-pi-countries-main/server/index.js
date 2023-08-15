@@ -5,7 +5,6 @@ const { conn } = require('./src/db.js');
 const insertCountries = require("./src/controllers/countries/insertCountries");
 const {PORT} = process.env || 3001;
 
-axios.defaults.baseURL = 'https://countries-production-53c7.up.railway.app/'
 
 insertCountries()
 
