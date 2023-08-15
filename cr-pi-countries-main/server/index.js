@@ -3,7 +3,7 @@ require("dotenv").config();
 const server = require("./src/server");
 const { conn } = require('./src/db.js');
 const insertCountries = require("./src/controllers/countries/insertCountries");
-const {PORT} = process.env;
+const {PORT} = process.env || 3001;
 
 insertCountries()
 

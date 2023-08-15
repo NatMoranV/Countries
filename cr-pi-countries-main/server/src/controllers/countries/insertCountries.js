@@ -6,7 +6,9 @@ const {URL_DATABASE} = process.env
 
 module.exports = async () => {
   try {
-    const response = await axios.get(`${URL_DATABASE}/countries`); 
+
+    
+    const response = await axios(`${URL_DATABASE}/countries`); 
     const countries = response.data;
 
 
