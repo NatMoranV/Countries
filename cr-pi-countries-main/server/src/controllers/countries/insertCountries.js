@@ -8,7 +8,7 @@ module.exports = async () => {
   try {
     const response = await axios.get(`${URL_DATABASE}/countries`); 
     const countries = response.data;
-{console.log(countries);}
+
 
     await Promise.all(countries.map(async (country) => {
       if (typeof country.flags[0] === "undefined") {
