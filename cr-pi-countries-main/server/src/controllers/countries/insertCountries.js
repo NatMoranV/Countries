@@ -6,12 +6,14 @@ const {URL_DATABASE} = process.env
 
 module.exports = async () => {
   try {
-    let countries =  (await axios.get(`${URL_DATABASE}/countries`)).data;;
-    countries = await Promise.all(
-      countries.map(async (country) => {
-        if (typeof country.flags[0] === "undefined") {
-          country.flags[0] = "";
-        }
+    const response = await axios.get(`${URL_DATABASE}/countries`); 
+    const countries = response.data;
+{console.log(countries);}
+
+    await Promise.all(countries.map(async (country) => {
+      if (typeof country.flags[0] === "undefined") {
+        country.flags[0] = "";
+      }
         return Country.findOrCreate({
           where: {
             id: country.cca3,
