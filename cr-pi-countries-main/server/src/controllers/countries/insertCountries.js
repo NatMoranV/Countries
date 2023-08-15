@@ -8,7 +8,7 @@ module.exports = async () => {
   try {
 
     
-    const response = await axios(`${URL_DATABASE}/countries`); 
+    const response = await axios(`/countries`); 
     const countries = response.data;
 
 
