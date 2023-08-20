@@ -63,6 +63,7 @@ export const Dropdown = ({
   selectedValue,
   onChange,
   helper,
+  visibleOption
 }) => {
   const isDisabled = !array || array.length === 0;
 
@@ -80,7 +81,7 @@ export const Dropdown = ({
         {option1 && (<option value={option1}>{option1}</option>)}
         {array.map((item, index) => (
           <option key={index} value={item}>
-            {item}
+            {visibleOption && visibleOption[index] ? visibleOption[index] : item}
           </option>
         ))}
       </StyledDropdown>

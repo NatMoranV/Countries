@@ -64,7 +64,7 @@ export const CardsGrid = () => {
 
   const continents = [...new Set(data.map((country) => country.continent))];
 
-  const orderers = ["population"];
+  const orderers = ["name", "population"];
 
   const applyFilters = () => {
     let filteredData = data;
@@ -172,8 +172,7 @@ export const CardsGrid = () => {
         <ButtonsContainer>
           <Dropdown
             label={"Filtrar por continente"}
-            option1={"Todos"}
-            array={continents}
+            array={["Todos", ...continents]}
             id={selectedContinent}
             selectedValue={selectedContinent}
             onChange={(e) => {
@@ -198,10 +197,10 @@ export const CardsGrid = () => {
           />
           <Dropdown
             label={"Ordenar por"}
-            option1={"name"}
             array={orderers}
             selectedValue={sortField}
             onChange={(e) => handleSortFieldChange(e.target.value)}
+            visibleOption={["Nombre", "Población"]}
           />
           <CircleButtonsContainer>
             <CircleButton

@@ -2,14 +2,14 @@ const { Country } = require("../../db.js");
 require("dotenv").config();
 const axios = require('axios');
 
-const {DB_DEPLOY} = process.env
+const {DB_DEPLOY, API_DATABASE} = process.env
 
 module.exports = async () => {
   try {
 
     
-    const response = await axios(`${DB_DEPLOY}/countries`); 
-    const countries = response.data;
+    const response = await axios(`https://raw.githubusercontent.com/NatMoranV/Countries/main/cr-pi-countries-main/server/api/db.json`); 
+    const countries = response.data.countries;
 
 
     await Promise.all(countries.map(async (country) => {
