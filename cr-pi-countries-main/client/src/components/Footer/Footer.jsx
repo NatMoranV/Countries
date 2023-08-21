@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
   align-self: stretch;
   display: flex;
   width: 100%;
-  height: 8vh;
+  height: 7vh;
   overflow: hidden;
   padding: 1rem;
   justify-content: space-between;

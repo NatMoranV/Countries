@@ -66,15 +66,15 @@ export const Dropdown = ({
   helper,
   visibleOption
 }) => {
-  const isDisabled = !array || array.length === 0;
+  const isDisabled = !array || !array.length;
 
   return (
     <DropdownContainer>
       <Label htmlFor={id}>{label}</Label>
       <StyledDropdown
+        className={isDisabled ? "disabled" : ""}
         name={name}
         id={id}
-        className={isDisabled ? "disabled" : ""}
         value={selectedValue}
         onChange={onChange}
         onBlur={onBlur}
