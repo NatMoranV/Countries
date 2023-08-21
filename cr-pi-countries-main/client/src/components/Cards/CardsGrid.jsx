@@ -240,6 +240,7 @@ export const CardsGrid = () => {
             onClick={handlePrevPage}
             disabled={currentPage === 1}
             icon={faArrowLeft}
+            className={""}
           />
 
           {Array.from({ length: pageEnd - pageStart + 1 }).map((_, index) => {
@@ -248,7 +249,7 @@ export const CardsGrid = () => {
               <CircleButton
                 key={pageNumber}
                 onClick={() => handlePageChange(pageNumber)}
-                className={currentPage === pageNumber ? "active" : ""}
+                className={currentPage === pageNumber ? "active " : ""}
                 content={pageNumber}
               ></CircleButton>
             );
@@ -292,7 +293,7 @@ const CircleButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: auto;
-  padding-top: 1.2rem;
+  margin-top: 1.2rem;
   box-sizing: border-box;
 
   @media (max-width: 1728px) {
@@ -314,5 +315,15 @@ const PaginationContainer = styled.div`
   align-items: center;
   gap: 0.875rem;
   justify-content: flex-end;
-  margin-bottom: 5rem;
+  margin: 5rem 0;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    && > button {
+      width: 3rem;
+    height: 3rem;
+    margin: 0;
+    }
+
+  }
 `;

@@ -6,8 +6,8 @@ import { styled } from "styled-components";
 
 export const StyledCard = styled.div`
 display: flex;
-gap: 2rem;
-padding: 1rem 1rem;
+gap: 1rem;
+padding: 1rem 1rem 2rem 1rem;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
@@ -31,6 +31,11 @@ border-radius: .5rem;
 &:hover{
   transform: scale(1.02);
   transition: all 0.2s ease-in-out;
+}
+
+&& button{
+
+  margin-top: 2rem;
 }
 `
 
