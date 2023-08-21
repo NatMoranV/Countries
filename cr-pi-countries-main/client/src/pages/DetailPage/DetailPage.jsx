@@ -27,7 +27,7 @@ export const DetailPage = () => {
   useEffect(() => {
     // Realiza la solicitud HTTP para obtener los detalles del país
     axios
-      .get(`http://localhost:3001/countries/${id}`)
+      .get(`countries/${id}`)
       .then((response) => {
         setCountryDetails(response.data); // Actualiza el estado con los detalles del país
       })
