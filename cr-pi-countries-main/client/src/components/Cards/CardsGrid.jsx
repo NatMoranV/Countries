@@ -183,13 +183,13 @@ export const CardsGrid = () => {
           />
           <Dropdown
             label={"Filtrar por actividad"}
-            option1={"Todas"}
+            option1={"Ninguna"}
             array={activities.map((activity) => activity.name)}
             id={selectedActivity}
             selectedValue={selectedActivity}
             onChange={(e) => {
               const value = e.target.value;
-              if (value === "Todas") {
+              if (value === "Ninguna") {
                 dispatch(setFilters(selectedContinent, ""));
               } else dispatch(setFilters(selectedContinent, value));
             }}

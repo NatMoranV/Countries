@@ -34,16 +34,7 @@ const StyledDropdown = styled.select`
   &:active {
     box-shadow: ${(props) => props.theme.pressedShadow};
   }
-
-  .disabled{
-    box-shadow: none;
-    border: 1px solid ${(props) => props.theme.textDisabled};
-    color: ${(props) => props.theme.textDisabled} ;
-    cursor: default;
-    pointer-events: none;
-
-
-  }
+  
 `;
 
 const DropdownIcon = styled.span`
