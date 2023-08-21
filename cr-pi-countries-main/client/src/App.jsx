@@ -30,7 +30,7 @@ export default function App() {
       <div className="App">
         {!isLandingPage && <NavBar themeToggler={themeToggler} currentTheme={theme} className="hidden" />}
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage themeToggler={themeToggler} currentTheme={theme} />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/setActivity" element={<FormPage />} />
           <Route path="/detail/:id" element={<DetailPage />} />

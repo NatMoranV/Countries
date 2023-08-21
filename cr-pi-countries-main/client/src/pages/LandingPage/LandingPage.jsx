@@ -4,6 +4,12 @@ import { Section } from "../../components/Section/Section";
 import { GridComponentes } from "../../components/Componente/GridComponentes";
 import { styled } from "styled-components";
 import { LogoText } from "../../assets/images/Logo/LogoText";
+import { CircleButton } from "../../components/CircleButton/CircleButton";
+
+import {
+  faMoon,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
 
 const StyledLandingPage = styled.div`
 margin: 5vh 8vw;
@@ -21,13 +27,28 @@ gap: 1.5rem;
   font-weight: 500;
 }
 
+&& > button{
+
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 3;
+}
+
 `
 
 
 
-export const LandingPage = () => {
+export const LandingPage = ({ themeToggler, currentTheme }) => {
   return (
     <StyledLandingPage>
+            <CircleButton
+          className={`small ${
+            currentTheme === "dark" ? "dark-theme" : "light-theme"
+          }`}
+          onClick={themeToggler}
+          icon={currentTheme === "dark" ? faSun : faMoon}
+        ></CircleButton>
     <LogoText/>
       <Hero />
       <h2>

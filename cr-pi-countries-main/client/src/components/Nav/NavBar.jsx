@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import { TextButton } from "../TextButton/TextButton";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical,
   faMoon,
@@ -73,7 +72,7 @@ const HamburgerButton = styled.div`
 
 export const NavBar = ({ themeToggler, currentTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); // Obtener la ubicación actual
+  const location = useLocation();
 
   useEffect(() => {
     function handleResize() {

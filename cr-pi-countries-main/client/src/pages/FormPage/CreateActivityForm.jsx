@@ -121,7 +121,7 @@ const CreateActivityForm = () => {
           },
         }
       );
-      alert("Respuesta del servidor:", response.data);
+      alert("Actividad creada con éxito", response.data);
 
 
       setActivityData({

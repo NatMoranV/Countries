@@ -6,7 +6,6 @@ import { Dropdown } from "../Dropdown/StyledDropdown";
 import {
   faArrowDown,
   faArrowUp,
-  faSearch,
   faFilterCircleXmark,
   faArrowLeft,
   faArrowRight,
@@ -55,7 +54,7 @@ export const CardsGrid = () => {
     axios
       .get("/activities")
       .then((response) => {
-        dispatch({ type: "SET_ACTIVITIES", payload: response.data }); // Actualiza los datos de actividades en el estado
+        dispatch({ type: "SET_ACTIVITIES", payload: response.data }); 
       })
       .catch((error) => {
         console.error(error);
